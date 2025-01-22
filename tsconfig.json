@@ -1,0 +1,18 @@
+{
+   "compilerOptions": {
+      "lib": [
+         "esnext",
+         "es2020"
+      ],
+      "target": "es2020",
+      "module": "commonjs",
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "outDir": "./build",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "sourceMap": true
+   },
+   "include": ["src/**/*"],
+   "exclude": ["node_modules"] 
+}
