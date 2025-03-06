@@ -5,7 +5,6 @@ interface UserProps{
     email: string
     password: string
     queryRunner:any
-    role: string
 }
 
 interface UserExistProp {
