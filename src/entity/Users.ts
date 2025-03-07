@@ -12,18 +12,6 @@ export class Users{
     @Column()
     password: string
 
-    @Column()
-    firstName: string
-
-    @Column({ nullable: true })
-    lastName: string | null
-
-    @Column({ type: "date", nullable: true })
-    dob: Date | null
-
-    @Column()
-    phoneNumber: string
-
     @BeforeInsert()
     async hashPassword() {
         if (this.password) {

@@ -7,13 +7,6 @@ interface GetProp {
     queryRunner:any
 }
 
-interface InsertProp extends GetProp{
-    firstName: string
-    lastName: string
-    dob: Date
-    phoneNumber: string
-}
-
 interface UserExistProp {
     queryRunner:any
     id?: number
@@ -30,7 +23,7 @@ async function isUserExists({ id, email, queryRunner }: UserExistProp){
     }
 }
 
-export async function insertUser({email, password, firstName, lastName, dob, phoneNumber, queryRunner}: InsertProp){
+export async function insertUser({email, password, queryRunner}: GetProp){
     const user = await isUserExists({ email, queryRunner })
     
     if(user){
@@ -41,10 +34,6 @@ export async function insertUser({email, password, firstName, lastName, dob, pho
     
     newUser.email = email.toLowerCase()
     newUser.password = password
-    newUser.firstName = firstName.toLowerCase()
-    newUser.lastName = lastName ? lastName.toLowerCase() : null
-    newUser.dob = dob
-    newUser.phoneNumber = phoneNumber
 
     await queryRunner.manager.save(newUser)
     return newUser

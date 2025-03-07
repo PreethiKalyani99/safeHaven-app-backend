@@ -19,8 +19,8 @@ const createUser = async(req: Request, res: Response, schema: Joi.ObjectSchema )
         if(error){
             throw new Error(`${error}`)
         }
-        const { email, password, firstName, lastName, dob, phoneNumber } = value
-        const result = await insertUser({ email, password, firstName, lastName: lastName || null, dob: dob || null, phoneNumber, queryRunner })
+        const { email, password } = value
+        const result = await insertUser({ email, password, queryRunner })
         await queryRunner.commitTransaction()
         res.status(201).json(result)
     }

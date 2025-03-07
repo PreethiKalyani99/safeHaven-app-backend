@@ -3,13 +3,6 @@ import Joi from "joi"
 export const userCreateSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().min(8).required(),
-    firstName: Joi.string().required(),
-    lastName: Joi.string().allow(null),
-    dob: Joi.date().iso().allow(null),
-    phoneNumber: Joi.string()
-    .pattern(/^\d{10}$/)
-    .required()
-    .error(new Error("Phone number must be exactly 10 digits"))
 })
 
 export const idSchema = Joi.object({
