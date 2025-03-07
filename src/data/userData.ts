@@ -1,10 +1,17 @@
 import { Users } from "../entity/Users";
 import { compare } from "bcrypt";
 
-interface UserProps{
+interface GetProp {
     email: string
     password: string
     queryRunner:any
+}
+
+interface InsertProp extends GetProp{
+    firstName: string
+    lastName: string
+    dob: Date
+    phoneNumber: string
 }
 
 interface UserExistProp {
@@ -23,7 +30,7 @@ async function isUserExists({ id, email, queryRunner }: UserExistProp){
     }
 }
 
-export async function insertUser({email, password, queryRunner}: UserProps){
+export async function insertUser({email, password, firstName, lastName, dob, phoneNumber, queryRunner}: InsertProp){
     const user = await isUserExists({ email, queryRunner })
     
     if(user){
@@ -34,12 +41,16 @@ export async function insertUser({email, password, queryRunner}: UserProps){
     
     newUser.email = email.toLowerCase()
     newUser.password = password
+    newUser.firstName = firstName.toLowerCase()
+    newUser.lastName = lastName ? lastName.toLowerCase() : null
+    newUser.dob = dob
+    newUser.phoneNumber = phoneNumber
 
     await queryRunner.manager.save(newUser)
     return newUser
 }
 
-export async function getUser({ email, password, queryRunner }: UserProps) {
+export async function getUser({ email, password, queryRunner }: GetProp) {
     const user = await isUserExists({ email, queryRunner })
 
     if(!user){
